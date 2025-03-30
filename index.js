@@ -48,24 +48,24 @@ app.get('/', (request, response) => {
   })
   app.get('/api/persons/:id', (request, response) => {
     const id = Number(request.params.id)
-    const note = notes.find(note => note.id === id)
+    const person = persons.find(person => person.id === id)
     
   
-    if (note) {
-      response.json(note)
+    if (person) {
+      response.json(person)
     } else {
       response.status(404).end()
     }
   })
   app.delete('/api/persons/:id', (request, response) => {
     const id = Number(request.params.id)
-    notes = notes.filter(note => note.id !== id)
+    persons = persons.filter(person => person.id !== id)
   
     response.status(204).end()
   })
   const generateId = () => {
-    const maxId = notes.length > 0
-      ? Math.max(...notes.map(n => n.id))
+    const maxId = persons.length > 0
+      ? Math.max(...persons.map(n => n.id))
       : 0
     return maxId + 1
   }
