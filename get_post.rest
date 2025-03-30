@@ -1,0 +1,13 @@
+### Sample REST Client for testing GET and POST requests
+
+### Get all notes
+GET http://localhost:3001/api/notes/
+
+### Post a new note
+POST http://localhost:3001/api/notes/ HTTP/1.1
+content-type: application/json
+
+{
+    "name": "sample",
+    "time": "Wed, 21 Oct 2015 18:27:50 GMT"
+}
