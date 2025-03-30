@@ -9,5 +9,5 @@ content-type: application/json
 
 {
     "name": "sample",
-    "time": "Wed, 21 Oct 2015 18:27:50 GMT"
+    "number": "388-123-4567"
 }
