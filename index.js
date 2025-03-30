@@ -39,7 +39,7 @@ app.get('/', (request, response) => {
   app.get('/info', (request, response) => {
     response.send(`<div>Phonebook has info for ${info[0].persons} people<div/>
     <br/> 
-    <div> ${info[0].date} </div>`,)
+    <div> ${info[0].date} </div>`)
   })
   
   const PORT = 3001
