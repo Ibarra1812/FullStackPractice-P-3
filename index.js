@@ -1,7 +1,11 @@
 const express = require('express')
 const app = express()
 const cors = require('cors')
-app.use(cors())
+app.use(cors())// Enable CORS for all routes, allowing cross-origin requests 
+// This is important for frontend to access the backend API beacause they are on different ports
+
+app.use(express.static('dist')) // Serve static files from the dist directory
+// This is the directory where the minified files of frontend are located
 let notes = [
   {
     id: '1',
@@ -28,9 +32,9 @@ const requestLogger = (request, response, next) => {
   next()
 }
 
-app.use(requestLogger)
+app.use(requestLogger) // Middleware to log requests
 app.use(express.static('dist'))
-app.use(express.json())
+app.use(express.json()) // Middleware to parse JSON bodies
 
 app.get('/', (request, response) => {
   response.send('<h1>Hello World!</h1>')
@@ -90,7 +94,7 @@ const unknownEndpoint = (request, response) => {
 
 app.use(unknownEndpoint)
 
-const PORT = process.env.PORT || 3001
+const PORT = process.env.PORT || 3001 //process.env.PORT is used for a port number in production, and 3001 is used for development
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
 })
