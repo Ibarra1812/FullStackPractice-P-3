@@ -1,7 +1,7 @@
 const http = require('http')
 const express = require('express')
 const app = express()
-
+var morgan = require('morgan')
 app.use(express.json())
 
 const requestLogger = (request, response, next) => {
@@ -11,12 +11,8 @@ const requestLogger = (request, response, next) => {
   console.log('---')
   next()
 }
-const unknownEndpoint = (request, response) => {
-  response.status(404).send({ error: 'unknown endpoint' })
-}
 
-app.use(unknownEndpoint)
-
+app.use(morgan('tiny'))
 app.use(requestLogger)
 
 let persons = [
@@ -60,16 +56,10 @@ app.get('/', (request, response) => {
     <br/> 
     <div> ${info[0].date} </div>`)
   })
-  
-  const PORT = 3001
-  app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`)
-  })
+
   app.get('/api/persons/:id', (request, response) => {
     const id = Number(request.params.id)
     const person = persons.find(person => person.id === id)
-    
-  
     if (person) {
       response.json(person)
     } else {
@@ -126,3 +116,18 @@ app.get('/', (request, response) => {
   
     response.json(persons)
   })
+
+  const PORT = 3001
+  app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`)
+  })
+
+/*   EXAMPLE: only log error responses
+morgan('combined', {
+  skip: function (req, res) { return res.statusCode < 400 }
+}) */
+  const unknownEndpoint = (request, response) => {
+    response.status(404).send({ error: 'unknown endpoint' })
+  }
+  
+  app.use(unknownEndpoint)
