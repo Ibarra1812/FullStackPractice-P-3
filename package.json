@@ -1,20 +1,17 @@
 {
-  "name": "fullstackpractice-p-3",
-  "version": "1.0.0",
-  "description": "Parte 3 de FullStackPractice",
-  "license": "ISC",
-  "author": "",
-  "type": "commonjs",
+  "name": "notebackend",
+  "version": "0.0.1",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "dev": "nodemon index.js",
+    "dev": "node --watch index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "author": "Matti Luukkainen",
+  "license": "MIT",
+  "description": "",
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "^4.21.2"
-  },
-  "devDependencies": {
-    "nodemon": "^3.1.9"
   }
 }
