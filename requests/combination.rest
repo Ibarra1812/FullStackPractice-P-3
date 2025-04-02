@@ -1,0 +1,13 @@
+### Sample REST Client for testing requests
+
+### Get all notes
+DELETE http://localhost:3001/api/persons/4
+
+### Post a new note
+POST http://localhost:3001/api/persons/ HTTP/1.1
+content-type: application/json
+
+{
+    "name": "sample",
+    "number": "388-123-4567"
+}

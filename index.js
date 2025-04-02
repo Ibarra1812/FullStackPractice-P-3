@@ -5,7 +5,7 @@ app.use(cors())// Enable CORS for all routes, allowing cross-origin requests
 // This is important for frontend to access the backend API beacause they are on different ports
 
 app.use(express.static('dist')) // Serve static files from the dist directory
-// This is the directory where the minified files of frontend are located
+// This is the directory where the minified files of frontend are located, whith this connect frontend to backend
 let notes = [
   {
     id: '1',
