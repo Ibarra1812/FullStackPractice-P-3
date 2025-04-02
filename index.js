@@ -3,7 +3,7 @@ const express = require('express')
 const app = express()
 var morgan = require('morgan')
 app.use(express.json())
-
+app.use(express.static('dist'))
 const requestLogger = (request, response, next) => {
   console.log('Method:', request.method)
   console.log('Path:  ', request.path)
@@ -36,6 +36,11 @@ let persons = [
   { 
     "id": 4,
     "name": "Mary Poppendieck", 
+    "number": "39-23-6423122"
+  },
+  { 
+    "id": 5,
+    "name": "John Doe", 
     "number": "39-23-6423122"
   }
 ]
