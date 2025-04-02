@@ -33,7 +33,6 @@ const requestLogger = (request, response, next) => {
 }
 
 app.use(requestLogger) // Middleware to log requests
-app.use(express.static('dist'))
 app.use(express.json()) // Middleware to parse JSON bodies
 
 app.get('/', (request, response) => {
