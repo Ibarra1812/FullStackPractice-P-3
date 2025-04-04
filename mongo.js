@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+/* const mongoose = require('mongoose');
 const password = process.argv[2];
 const table = 'telefonneApp';
 const Name = process.argv[3];
@@ -22,7 +22,7 @@ if (hasOnlySpaces(number)) {
     process.exit(1);
 }
 
-const url = `mongodb+srv://fullstack:${password}@phonenumber.nqhhn3m.mongodb.net/${table}?retryWrites=true&w=majority&appName=PhoneNumber`;
+const url = `mongodb+srv://fullstack:${password}@phonenumber.nqhhn3m.mongodb.net/telefonneApp?retryWrites=true&w=majority&appName=PhoneNumber`;
 mongoose.set('strictQuery', false);
 mongoose.connect(url).catch((err) => {
     console.log('Error connecting to MongoDB:', err.message);
@@ -67,4 +67,4 @@ person.save()
     .catch(err => {
         console.error(err);
         mongoose.connection.close();
-    })};
+    })}; */

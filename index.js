@@ -1,8 +1,9 @@
-const http = require('http')
+require('dotenv').config()
 const express = require('express')
 const app = express()
 var morgan = require('morgan')
 const cors = require('cors')
+const Person = require('./modules/persons')
 app.use(cors())
 
 
@@ -21,33 +22,7 @@ morgan.token('body', function (req, res) { return JSON.stringify(req.body) })
 
 app.use(requestLogger)
 
-let persons = [
-  { 
-    "id": 1,
-    "name": "Arto Hellas", 
-    "number": "040-123456"
-  },
-  { 
-    "id": 2,
-    "name": "Ada Lovelace", 
-    "number": "39-44-5323523"
-  },
-  { 
-    "id": 3,
-    "name": "Dan Abramov", 
-    "number": "12-43-234345"
-  },
-  { 
-    "id": 4,
-    "name": "Mary Poppendieck", 
-    "number": "39-23-6423122"
-  },
-  { 
-    "id": 5,
-    "name": "John Doe", 
-    "number": "39-23-6423122"
-  }
-]
+let persons = []
 
 let info = [{
   "date": new Date(),
@@ -55,13 +30,15 @@ let info = [{
 }]
 
 app.get('/', (request, response) => {
-  
     response.send('<h1>Hello World!</h1>')
   })
   
   app.get('/api/persons', (request, response) => {
-    response.json(persons)
+    Person.find({}).then(person => {
+    response.json(person)
+    })
   })
+
   app.get('/info', (request, response) => {
     response.send(`<div>Phonebook has info for ${info[0].persons} people<div/>
     <br/> 
@@ -89,10 +66,10 @@ app.get('/', (request, response) => {
       : 0
     return maxId + 1
   } */
-    const getRandomInt = (max) => {
+   /*  const getRandomInt = (max) => {
       return Math.floor(Math.random() * max);
-    }
-    
+    } */
+
   app.post('/api/persons', (request, response) => {
     const body = request.body
   
@@ -117,21 +94,17 @@ app.get('/', (request, response) => {
       })
     }
   
-    const person = {
-      id: getRandomInt(10000),
-      name: body.name,
-      number: body.number
-    }
+    const note = new Note({
+      content: body.content,
+      important: body.important || false,
+    })
   
-    persons = persons.concat(person)
-  
-    response.json(persons)
+    note.save().then(savedNote => {
+      response.json(savedNote)
+    })
   })
 
-  const PORT = 3001
-  app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`)
-  })
+
 
 /*   EXAMPLE: only log error responses
 morgan('combined', {
@@ -142,3 +115,8 @@ morgan('combined', {
   }
   
   app.use(unknownEndpoint)
+
+  const PORT = process.env.PORT
+  app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`)
+  })
