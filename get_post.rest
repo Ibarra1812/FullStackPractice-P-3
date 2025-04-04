@@ -11,3 +11,7 @@ content-type: application/json
     "name": "sample",
     "number": "388-123-4567"
 }
+### Get all notes
+GET http://localhost:3001/api/persons
+### Get a note by id
+GET http://localhost:3001/api/persons/67ef405440944e7059817ca7

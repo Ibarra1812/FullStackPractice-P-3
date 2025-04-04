@@ -46,13 +46,9 @@ app.get('/', (request, response) => {
   })
 
   app.get('/api/persons/:id', (request, response) => {
-    const id = Number(request.params.id)
-    const person = persons.find(person => person.id === id)
-    if (person) {
+    Person.findById(request.params.id).then(person => {
       response.json(person)
-    } else {
-      response.status(404).end()
-    }
+    })
   })
   app.delete('/api/persons/:id', (request, response) => {
     const id = Number(request.params.id)
@@ -94,13 +90,13 @@ app.get('/', (request, response) => {
       })
     }
   
-    const note = new Note({
-      content: body.content,
-      important: body.important || false,
+    const person = new Person({
+      name: body.name,
+      number: body.number,
     })
   
-    note.save().then(savedNote => {
-      response.json(savedNote)
+    person.save().then(savedPerson => {
+      response.json(savedPerson)
     })
   })
 
