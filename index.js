@@ -22,28 +22,27 @@ morgan.token('body', function (req, res) { return JSON.stringify(req.body) })
 
 app.use(requestLogger)
 
-let persons = []
-
-let info = [{
-  "date": new Date(),
-  "persons": persons.length
-}]
+app.get('/info', async (request, response) => {
+  try {
+    const count = await Person.estimatedDocumentCount();
+    //Model.estimatedDocumentCount() is a method that provides an estimate of the number of documents in a collection without actually counting them.
+    response.send(`<div>Phonebook has info for ${count} people<div/>
+    <br/> 
+    <div>${new Date()}</div>`);
+  } catch (error) {
+    response.status(500).send({ error: 'Failed to fetch data' });
+  }
+});
 
 app.get('/', (request, response) => {
-    response.send('<h1>Hello World!</h1>')
-  })
-  
-  app.get('/api/persons', (request, response) => {
-    Person.find({}).then(person => {
-    response.json(person)
-    })
-  })
+  response.send('<h1>Hello World!</h1>');
+});
 
-  app.get('/info', (request, response) => {
-    response.send(`<div>Phonebook has info for ${info[0].persons} people<div/>
-    <br/> 
-    <div> ${info[0].date} </div>`)
-  })
+app.get('/api/persons', (request, response) => {
+  Person.find({}).then(person => {
+    response.json(person);
+  });
+});
 
   app.get('/api/persons/:id', (request, response, next) => {
     Person.findById(request.params.id).then(person => {
