@@ -7,7 +7,7 @@ const mongoose = require('mongoose')
 const Note = require('./models/note') // Import the Note model from models/note.js
 
 // Connect to MongoDB using the MONGO_URI environment variable
-const mongoUrl = process.env.MONGO_URI
+const mongoUrl = process.env.MONGODB_URI
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
     console.log('Connected to MongoDB')
