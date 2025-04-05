@@ -45,17 +45,39 @@ app.get('/', (request, response) => {
     <div> ${info[0].date} </div>`)
   })
 
-  app.get('/api/persons/:id', (request, response) => {
+  app.get('/api/persons/:id', (request, response, next) => {
     Person.findById(request.params.id).then(person => {
-      response.json(person)
+      if (person) {
+        response.json(person)
+      } else {
+        response.status(404).end()
+      }
     })
+    .catch(error => next(error))
   })
-  app.delete('/api/persons/:id', (request, response) => {
-    const id = Number(request.params.id)
-    persons = persons.filter(person => person.id !== id)
+  app.delete('/api/persons/:id', (request, response, next) => {
+    Person.findByIdAndDelete(request.params.id)
+    .then(result => {
+      response.status(204).end()
+    })
+    .catch(error => next(error))
+  })
   
-    response.status(204).end()
+  app.put('/api/persons/:id', (request, response, next) => {
+    const body = request.body
+
+    const person = {
+      name: body.name,
+      number: body.number,
+    }
+
+    Person.findByIdAndUpdate(request.params.id, person, { new: true })
+      .then(updatedPerson => {
+        response.json(updatedPerson)
+      })
+      .catch(error => next(error))
   })
+
   /* const generateId = () => {
     const maxId = persons.length > 0
       ? Math.max(...persons.map(n => n.id))
