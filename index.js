@@ -16,6 +16,15 @@ const requestLogger = (request, response, next) => {
   console.log('---')
   next()
 }
+const errorHandler = (error, request, response, next) => {
+  console.error(error.message)
+
+  if (error.name === 'CastError') {
+    return response.status(400).send({ error: 'malformatted id' })
+  }
+
+  next(error)
+}
 
 app.use(morgan(':method :url :status :res[content-length] :response-time ms :body'))
 morgan.token('body', function (req, res) { return JSON.stringify(req.body) })
@@ -132,7 +141,7 @@ morgan('combined', {
   }
   
   app.use(unknownEndpoint)
-
+  app.use(errorHandler)
   const PORT = process.env.PORT
   app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`)
