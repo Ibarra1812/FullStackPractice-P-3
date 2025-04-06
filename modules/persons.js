@@ -20,7 +20,29 @@ const personSchema = new mongoose.Schema({
       minLength: 3,
       required: true,
     },
-    number: String,
+
+    number: {
+      type: String,
+      required: true,
+      validate: [
+        {
+          validator: v => v.length >= 8,
+          message: "Mínimo 8 caracteres"
+        },
+        {
+          validator: v => /^\d{2,3}-\d+$/.test(v),
+          message: "Formato NN-NNNN o NNN-NNN..."
+        }
+      ]      
+    }
+/* ALTERNATIVA CON UN SOLO VALIDADOR 
+    validator: function(v) {
+      // Verificar ambas condiciones en un solo validador
+      return (
+        v.length >= 8 && // Condición 1: Longitud mínima
+        /^\d{2,3}-\d+$/.test(v) // Condición 2: Formato XXXX-XXXX
+      );
+    }, */
 });
 
 personSchema.set('toJSON', {
