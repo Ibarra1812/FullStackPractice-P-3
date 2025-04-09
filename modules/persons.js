@@ -15,27 +15,27 @@ mongoose.connect(url)
     console.log('error connecting to MongoDB:', error.message)
   })
 const personSchema = new mongoose.Schema({
-    name: {
-      type:String,
-      minLength: 3,
-      required: true,
-    },
+  name: {
+    type:String,
+    minLength: 3,
+    required: true,
+  },
 
-    number: {
-      type: String,
-      required: true,
-      validate: [
-        {
-          validator: v => v.length >= 8,
-          message: "Mínimo 8 caracteres"
-        },
-        {
-          validator: v => /^\d{2,3}-\d+$/.test(v),
-          message: "Formato NN-NNNN o NNN-NNN..."
-        }
-      ]      
-    }
-/* ALTERNATIVA CON UN SOLO VALIDADOR 
+  number: {
+    type: String,
+    required: true,
+    validate: [
+      {
+        validator: v => v.length >= 8,
+        message: 'Mínimo 8 caracteres'
+      },
+      {
+        validator: v => /^\d{2,3}-\d+$/.test(v),
+        message: 'Formato NN-NNNN o NNN-NNN...'
+      }
+    ]
+  }
+/* ALTERNATIVA CON UN SOLO VALIDADOR
     validator: function(v) {
       // Verificar ambas condiciones en un solo validador
       return (
@@ -43,7 +43,7 @@ const personSchema = new mongoose.Schema({
         /^\d{2,3}-\d+$/.test(v) // Condición 2: Formato XXXX-XXXX
       );
     }, */
-});
+})
 
 personSchema.set('toJSON', {
   transform: (document, returnedObject) => {
@@ -54,4 +54,4 @@ personSchema.set('toJSON', {
 })
 
 
-module.exports = mongoose.model('Person', personSchema);
+module.exports = mongoose.model('Person', personSchema)
