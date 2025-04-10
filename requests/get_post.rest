@@ -1,19 +1,53 @@
 ### Sample REST Client for testing requests
 
 ### Get all notes
-DELETE http://localhost:3001/api/persons/67f169d1e41298b1614dfcb5
+DELETE http://localhost:3001/api/blogs/67f169d1e41298b1614dfcb5
 
-### Post a new note
-POST http://localhost:3001/api/persons/ HTTP/1.1
+### Post a new blog example 1
+POST http://localhost:3001/api/blogs/ HTTP/1.1
 content-type: application/json
 
 {
-    "name": "sample",
-    "number": "388-123-4567"
+    "title": "My First Blog",
+    "author": "John Doe",
+    "url": "https://example.com/blog1",
+    "likes": 5
+}
+
+### Post a new blog example 2
+POST http://localhost:3001/api/blogs/ HTTP/1.1
+content-type: application/json
+
+{
+    "title": "Learning REST APIs",
+    "author": "Jane Smith",
+    "url": "https://example.com/blog2",
+    "likes": 10
+}
+
+### Post a new blog example 3
+POST http://localhost:3001/api/blogs/ HTTP/1.1
+content-type: application/json
+
+{
+    "title": "MongoDB Basics",
+    "author": "Mike Johnson",
+    "url": "https://example.com/blog3",
+    "likes": 0
+}
+
+### Post a new blog without likes
+POST http://localhost:3001/api/blogs/ HTTP/1.1
+content-type: application/json
+
+{
+    "title": "New Article",
+    "author": "Alice Brown",
+    "url": "https://example.com/blog4"
 }
 ### Get all notes
-GET http://localhost:3001/api/persons
+GET http://localhost:3001/api/blogs
 ### Get a note by id
-GET http://localhost:3001/api/persons/67ef405440944e7059817ca7
+GET http://localhost:3001/api/blogs/67f71e9b385b8735989029bb
 ### Get INFO
-GET http://localhost:3001/info
+GET http://localhost:3001/blogs
