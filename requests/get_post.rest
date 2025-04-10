@@ -30,10 +30,10 @@ POST http://localhost:3001/api/blogs/ HTTP/1.1
 content-type: application/json
 
 {
-    "title": "MongoDB Basics",
-    "author": "Mike Johnson",
-    "url": "https://example.com/blog3",
-    "likes": 0
+    "title": "Advanced MongoDB Tips",
+    "author": "Sarah Wilson",
+    "url": "https://example.com/mongodb-tips",
+    "likes": 15
 }
 
 ### Post a new blog without likes
